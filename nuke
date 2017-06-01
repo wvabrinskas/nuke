@@ -1,0 +1,28 @@
+#!/bin/bash
+SOURCE=$1
+NUMBER=$2
+
+if [[ -z $NUMBER && -z $SOURCE ]]; then
+  echo "nuke needs a source and a number of times to nuke ex: nuke image.jpg 12"
+  exit 1
+else
+
+  if (( $NUMBER > 100 )); then
+    echo "Please enter a number less than 100"
+    exit 1
+  fi
+
+  echo "making nuke directory...."
+  mkdir ./warzone/
+
+  echo "entering nuclear war...."
+  cp $SOURCE ./warzone/$SOURCE
+
+  echo "nuke time!!!!"
+
+  for i in `seq 1 $NUMBER`; do
+    convert ./warzone/$SOURCE -compress JPEG -quality 2 ./warzone/$SOURCE
+  done
+
+  exit 0
+fi
