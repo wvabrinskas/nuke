@@ -1,6 +1,7 @@
 #!/bin/bash
 SOURCE=$1
 NUMBER=$2
+OPTION=$3
 
 if [[ -z $NUMBER && -z $SOURCE ]]; then
   echo "nuke needs a source and a number of times to nuke ex: nuke image.jpg 12"
@@ -24,5 +25,10 @@ else
     convert ./warzone/$SOURCE -compress JPEG -quality 2 ./warzone/$SOURCE
   done
 
+  if [[ -n $OPTION ]]; then
+    if [[ $OPTION == "--negative" ]]; then
+      convert ./warzone/$SOURCE -negate ./warzone/$SOURCE
+    fi
+  fi
   exit 0
 fi
